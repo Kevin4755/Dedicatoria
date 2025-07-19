@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Kevin y Vanessa">
+  <title>Kevin & Vanessa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --neon-cyan: #0ff;
+      --neon-pink: #f0f;
+      --neon-rose: #ff69b4;
+      --text-pink: #ff00ff;
+      --dark-bg: #111;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      background: var(--dark-bg);
+      font-family: 'Pacifico', cursive;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .container {
+      padding: 80px 20px 40px;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      color: var(--neon-cyan);
+      text-shadow: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+      animation: pulse 2s infinite;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      max-width: 750px;
+      margin: 20px auto;
+      color: var(--neon-pink);
+      text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+      line-height: 1.6;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+    }
+
+    .names {
+      margin: 10px 0 30px;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      color: var(--text-pink);
+      text-shadow: 0 0 10px var(--text-pink);
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .date {
+      display: inline-block;
+      background: rgba(255, 0, 255, 0.2);
+      padding: 8px 15px;
+      border-radius: 30px;
+      margin: 15px 0;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      backdrop-filter: blur(5px);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin: 40px auto;
+      max-width: 90%;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border: 3px solid var(--neon-cyan);
+      box-shadow: 0 0 20px var(--neon-cyan);
+      border-radius: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+      cursor: pointer;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px var(--neon-pink);
+      filter: brightness(1.1);
+    }
+
+    @keyframes pulse {
+      0%, 100% { text-shadow: 0 0 10px var(--neon-cyan); }
+      50% { text-shadow: 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan); }
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--neon-pink);
+      transform: rotate(45deg);
+      animation: float 8s linear infinite;
+      opacity: 0.6;
+      z-index: 0;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--neon-pink);
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% { 
+        bottom: -20px; 
+        opacity: 0; 
+        transform: rotate(45deg) scale(1) translateX(0);
+      }
+      50% { opacity: 1; }
+      100% { 
+        bottom: 110%; 
+        opacity: 0; 
+        transform: rotate(45deg) scale(1.5) translateX(calc(100px * var(--random-x)));
+      }
+    }
+
+    .heart-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 40px auto;
+      position: relative;
+    }
+
+    .heart-wrapper {
+      position: relative;
+      width: min(300px, 90vw);
+      aspect-ratio: 1 / 1;
+      margin: 0 auto;
+    }
+
+    /* Contorno rosa neón */
+    .neon-border {
+      position: absolute;
+      inset: 0;
+      clip-path: path("M150 270 C50 200, 0 100, 75 60 C110 40, 150 70, 150 70 C150 70, 190 40, 225 60 C300 100, 250 200, 150 270 Z");
+      border: 6px solid var(--neon-rose);
+      box-shadow: 0 0 20px var(--neon-rose), 0 0 40px var(--neon-rose);
+      z-index: 1;
+      pointer-events: none;
+      animation: neonPulse 2s infinite alternate;
+      background: transparent;
+    }
+
+    @keyframes neonPulse {
+      from {
+        box-shadow: 0 0 20px var(--neon-rose), 0 0 40px var(--neon-rose);
+      }
+      to {
+        box-shadow: 0 0 40px var(--neon-rose), 0 0 80px var(--neon-rose);
+      }
+    }
+
+    /* Corazón con video */
+    .neon-heart {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      clip-path: path("M150 270 C50 200, 0 100, 75 60 C110 40, 150 70, 150 70 C150 70, 190 40, 225 60 C300 100, 250 200, 150 270 Z");
+      background: transparent;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .neon-heart video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(1.1);
+      display: block;
+    }
+
+    .audio-controls {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .control-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 0, 255, 0.2);
+      border: none;
+      color: var(--text-pink);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .control-btn:hover {
+      background: rgba(255, 0, 255, 0.4);
+      transform: scale(1.1);
+    }
+
+    .control-btn i {
+      pointer-events: none;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .modal-img {
+      max-width: 100%;
+      max-height: 80vh;
+      border: 3px solid var(--neon-pink);
+      box-shadow: 0 0 30px var(--neon-pink);
+      border-radius: 10px;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: var(--neon-pink);
+      color: #000;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .counter {
+      margin: 30px 0;
+      font-size: 1.2rem;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 10px var(--neon-cyan);
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .counter-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .counter-value {
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+      
+      .gallery img {
+        height: 200px;
+      }
+      
+      .audio-controls {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding-top: 60px;
+      }
+      
+      .gallery {
+        grid-template-columns: 1fr;
+        max-width: 95%;
+      }
+      
+      .gallery img {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>¡Felices 2 Años! <span class="heart-beat">💖</span></h1>
+  <div class="names">
+    <span>Kevin</span> 
+    <span>&</span> 
+    <span>Vanessa</span>
+  </div>
+  
+  <div class="date">16/07/2025</div>
+  
+  <div class="counter">
+    <div class="counter-item">
+      <span>Tiempo juntos:</span>
+      <span class="counter-value" id="days-together">730 días</span>
+    </div>
+    <div class="counter-item">
+      <span>Horas de felicidad:</span>
+      <span class="counter-value" id="hours-together">17,520 horas</span>
+    </div>
+  </div>
+  
+  <p>
+    Ahora ya dos años llenos de amor, aventuras, risas y abrazos. <br>
+    Cada momento a tu lado ha sido un regalo del destino. <br>
+    ¡Gracias por todo tu amor y cariño! Te amo con todo mi corazón, Esta canción va dedicada a ti, mi amor eterno. 💘
+  </p>
+
+  <div class="heart-container">
+    <div class="heart-wrapper">
+      <div class="neon-border"></div>
+      <div class="neon-heart">
+        <video id="videoEspecial" src="video/especial.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </div>
+    
+    <div class="audio-controls">
+      <button id="soundToggle" class="control-btn" title="Activar/Desactivar sonido">
+        <i class="fas fa-volume-mute"></i>
+      </button>
+      <button id="playPause" class="control-btn" title="Play/Pause">
+        <i class="fas fa-pause"></i>
+      </button>
+      <button id="fullscreenBtn" class="control-btn" title="Pantalla completa">
+        <i class="fas fa-expand"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="gallery">
+    <img src="img1.jpg" alt="Foto juntos 1" data-img="img1.jpg">
+    <img src="img2.jpg" alt="Foto juntos 2" data-img="img2.jpg">
+    <img src="img3.jpg" alt="Foto juntos 3" data-img="img3.jpg">
+    <img src="img4.jpg" alt="Foto juntos 4" data-img="img4.jpg">
+  </div>
+  
+  <footer>
+    Creado con todo el corazon para el amor de mi vida
+  </footer>
+</div>
+
+<div class="modal" id="imageModal">
+  <div class="modal-content">
+    <button class="close-modal">&times;</button>
+    <img class="modal-img" id="modalImage" src="" alt="">
+  </div>
+</div>
+
+<script>
+  // Corazones flotantes con mejor distribución
+  function createHearts() {
+    for (let i = 0; i < 30; i++) {
+      let heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+      heart.style.animationDelay = Math.random() * 5 + 's';
+      heart.style.setProperty('--random-x', Math.random() > 0.5 ? 1 : -1);
+      document.body.appendChild(heart);
+    }
+  }
+  
+  // Controles de video
+  const video = document.getElementById('videoEspecial');
+  const soundBtn = document.getElementById('soundToggle');
+  const playPauseBtn = document.getElementById('playPause');
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
+  
+  soundBtn.addEventListener('click', () => {
+    video.muted = !video.muted;
+    soundBtn.innerHTML = `<i class="fas ${video.muted ? 'fa-volume-mute' : 'fa-volume-up'}"></i>`;
+    soundBtn.title = video.muted ? "Activar sonido" : "Silenciar video";
+  });
+  
+  playPauseBtn.addEventListener('click', () => {
+    if (video.paused) {
+      video.play();
+      playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      playPauseBtn.title = "Pausar video";
+    } else {
+      video.pause();
+      playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+      playPauseBtn.title = "Reproducir video";
+    }
+  });
+  
+  fullscreenBtn.addEventListener('click', () => {
+    if (video.requestFullscreen) {
+      video.requestFullscreen();
+    } else if (video.webkitRequestFullscreen) {
+      video.webkitRequestFullscreen();
+    } else if (video.msRequestFullscreen) {
+      video.msRequestFullscreen();
+    }
+  });
+  
+  // Galería modal
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImage');
+  const closeModal = document.querySelector('.close-modal');
+  const galleryImages = document.querySelectorAll('.gallery img');
+  
+  galleryImages.forEach(img => {
+    img.addEventListener('click', () => {
+      modalImg.src = img.src;
+      modalImg.alt = img.alt;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  
+  closeModal.addEventListener('click', () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  });
+  
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+  });
+  
+  // Contador de tiempo juntos
+  function updateCounter() {
+    const startDate = new Date('2023-07-16');
+    const now = new Date();
+    const diffTime = Math.abs(now - startDate);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+    
+    document.getElementById('days-together').textContent = `${diffDays} días`;
+    document.getElementById('hours-together').textContent = `${diffHours.toLocaleString()} horas`;
+  }
+  
+  // Latido del corazón del título
+  function animateHeart() {
+    const heart = document.querySelector('.heart-beat');
+    heart.style.transform = 'scale(1.2)';
+    setTimeout(() => {
+      heart.style.transform = 'scale(1)';
+    }, 500);
+  }
+  
+  // Inicialización
+  document.addEventListener('DOMContentLoaded', () => {
+    createHearts();
+    updateCounter();
+    setInterval(updateCounter, 3600000); // Actualizar cada hora
+    setInterval(animateHeart, 1500); // Latido cada 1.5 segundos
+    
+    // Precargar imágenes para mejor rendimiento
+    const images = [];
+    galleryImages.forEach(img => {
+      const newImg = new Image();
+      newImg.src = img.src;
+      images.push(newImg);
+    });
+  });
+</script>
+
+</body>
+</html>
